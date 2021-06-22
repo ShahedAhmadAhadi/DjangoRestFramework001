@@ -1,7 +1,6 @@
 from re import search
 from django.contrib.auth.models import User, Group
 from rest_framework import serializers
-from .models import Car
 
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
