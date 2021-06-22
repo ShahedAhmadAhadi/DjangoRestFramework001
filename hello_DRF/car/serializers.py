@@ -1,7 +1,7 @@
 from re import search
-from django.contrib.auth.models import User, Group
 from rest_framework import serializers
 from .models import Car
+
 
 class CarSerializer(serializers.Serializer):
     no_plate = serializers.IntegerField()
@@ -9,7 +9,7 @@ class CarSerializer(serializers.Serializer):
     color = serializers.CharField(max_length=12)
 
     def create(self, validated_data):
-        return Car.create(validated_data)
+        return Car.objects.create(**validated_data)
 
     def update(self, instance, validated_data):
         instance.model = validated_data.get('model', instance.model)
