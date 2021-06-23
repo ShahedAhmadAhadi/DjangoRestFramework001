@@ -16,3 +16,7 @@ class CarSerializer(serializers.Serializer):
         instance.color = validated_data.get('color', instance.color)
         instance.save()
         return instance
+
+
+class PersonSerializer(serializers.ModelSerializer):
+    pass
