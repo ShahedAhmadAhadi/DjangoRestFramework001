@@ -27,6 +27,29 @@ def car_list(request):
 
 
 @csrf_exempt
+def car_details(request, pk):
+    try:
+        car = Car.objects.get(no_plate=pk)
+    except Car.DoesNotExist:
+        return JsonResponse(status=404)
+
+    if request.method == "GET":
+        serializer = CarSerializer(car)
+        return JsonResponse(serializer.data)
+
+    elif request.method == "PUT":
+        data = JSONParser().parse(request)
+        serializer = CarSerializer(car, data=data)
+        if serializer.is_valid():
+            serializer.save()
+            return JsonResponse(serializer.data, status=200)
+        return JsonResponse(serializer.errors ,status=400)
+
+    elif request.method == "DELETE":
+        car.delete()
+        return JsonResponse(status=204)
+
+@csrf_exempt
 def person_list(request):
     if request.method == "GET":
         person = Person.objects.all()
@@ -40,3 +63,26 @@ def person_list(request):
             serializer.save()
             return JsonResponse(serializer.data, status=201)
         return JsonResponse(serializer.errors, status=400)
+
+@csrf_exempt
+def person_details(request, pk):
+    try:
+        person = Person.objects.get(id=pk)
+    except Person.DoesNotExist:
+        return JsonResponse(status=404)
+
+    if request.method == "GET":
+        serializer = PersonSerializer(person)
+        return JsonResponse(serializer.data)
+
+    elif request.method == "PUT":
+        data = JSONParser().parse(request)
+        serializer = PersonSerializer(person, data=data)
+        if serializer.is_valid():
+            serializer.save()
+            return JsonResponse(serializer.data, status=200)
+        return JsonResponse(serializer.errors ,status=400)
+
+    elif request.method == "DELETE":
+        person.delete()
+        return JsonResponse(status=204)
