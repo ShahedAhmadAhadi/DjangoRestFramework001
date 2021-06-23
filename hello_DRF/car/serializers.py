@@ -1,6 +1,6 @@
 from re import search
-from rest_framework import serializers
-from .models import Car
+from rest_framework import fields, serializers
+from .models import Car, Person
 
 
 class CarSerializer(serializers.Serializer):
@@ -19,4 +19,7 @@ class CarSerializer(serializers.Serializer):
 
 
 class PersonSerializer(serializers.ModelSerializer):
-    pass
+    class Meta:
+        model = Person
+        fields = ['id', 'name', 'DOB', 'job']
+
