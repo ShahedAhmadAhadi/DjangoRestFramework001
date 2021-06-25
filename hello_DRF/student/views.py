@@ -13,7 +13,7 @@ from .models import Student
 def student_list(request):
     if request.method == "GET":
         student = Student.objects.all()
-        serializer = StudentSerializer(student, manay=True)
+        serializer = StudentSerializer(student, many=True)
         return Response(serializer.data)
 
     if request.method == "POST":

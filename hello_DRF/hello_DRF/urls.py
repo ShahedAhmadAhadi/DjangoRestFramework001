@@ -18,6 +18,7 @@ from django.urls import path, include
 from rest_framework import routers
 from .begin import views
 from car import views as carView
+from student import views as studentViews
 
 router = routers.DefaultRouter()
 router.register(r'users', views.UserViewSet)
@@ -30,6 +31,6 @@ urlpatterns = [
     path('car/', carView.car_list),
     path('car/<int:pk>', carView.car_details),
     path('person/', carView.person_list),
-    path('person/<int:pk>', carView.person_details)
-
+    path('person/<int:pk>', carView.person_details),
+    path('student', studentViews.student_list)
 ]
