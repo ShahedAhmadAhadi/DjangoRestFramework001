@@ -6,3 +6,9 @@ class StudentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Student
         fields = ['id', 'name', 'father_name', 'age']
+
+
+class StudentNameSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Student
+        fields = ['name', 'father_name']

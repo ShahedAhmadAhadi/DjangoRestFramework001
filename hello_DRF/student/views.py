@@ -1,8 +1,9 @@
 from django.shortcuts import render
-from .serializers import StudentSerializer
+from .serializers import StudentSerializer, StudentNameSerializer
 from rest_framework import serializers, status
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
+from rest_framework.views import APIView
 from .models import Student
 
 
@@ -17,7 +18,7 @@ def student_list(request):
         return Response(serializer.data)
 
     if request.method == "POST":
-        serializer = StudentSerializer(data = request.data)
+        serializer = StudentSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
@@ -45,3 +46,17 @@ def student_detail(request, pk):
     elif request.method == 'DELETE':
         student.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+class StudentName(APIView):
+    def get(self, request, format=None):
+        student = Student.objects.values('name', 'father_name')
+        serializer = StudentNameSerializer(student)
+        return Response(serializer.data)
+
+    def post(self, request, format=None):
+        serializer = StudentNameSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
