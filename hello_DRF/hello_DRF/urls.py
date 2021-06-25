@@ -32,6 +32,6 @@ urlpatterns = [
     path('car/<int:pk>', carView.car_details),
     path('person/', carView.person_list),
     path('person/<int:pk>', carView.person_details),
-    path('student', studentViews.student_list),
+    path('student/', studentViews.student_list),
     path('student/<int:pk>/', studentViews.student_detail)
 ]
