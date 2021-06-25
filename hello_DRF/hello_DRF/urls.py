@@ -34,5 +34,5 @@ urlpatterns = [
     path('person/<int:pk>', carView.person_details),
     path('student/', studentViews.student_list),
     path('student/<int:pk>/', studentViews.student_detail),
-    path('students/', studentViews.StudentName)
+    path('students/', studentViews.StudentName.as_view())
 ]
