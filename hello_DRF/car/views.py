@@ -3,9 +3,11 @@ from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.models import User
 from django.http import JsonResponse, HttpResponse
 from rest_framework import serializers
+from rest_framework.decorators import permission_classes
 from rest_framework.parsers import JSONParser
 from rest_framework.utils import json
 from .models import Person, Car
+from rest_framework import permissions
 from .serializers import CarSerializer, PersonSerializer, UserSerializer
 from rest_framework import generics
 from rest_framework import mixins
@@ -18,6 +20,10 @@ class SnippetList(mixins.ListModelMixin,
                   generics.GenericAPIView):
     car = Car.objects.all()
     serializer_class = CarSerializer
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+
+    def perform_create(self, serializer):
+        serializer.save(owner=self.request.user)
 
     def get(self, request, *args, **kwargs):
         return self.list(request, *args, **kwargs)
@@ -29,6 +35,7 @@ class SnippetList(mixins.ListModelMixin,
 
 @csrf_exempt
 def car_details(request, pk):
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
     try:
         car = Car.objects.get(no_plate=pk)
     except Car.DoesNotExist:
