@@ -1,11 +1,13 @@
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
+from django.contrib.auth.models import User
 from django.http import JsonResponse, HttpResponse
 from rest_framework import serializers
 from rest_framework.parsers import JSONParser
 from rest_framework.utils import json
 from .models import Person, Car
 from .serializers import PersonSerializer, CarSerializer
+from rest_framework import generics
 
 # Create your views here.
 
@@ -86,3 +88,13 @@ def person_details(request, pk):
     elif request.method == "DELETE":
         person.delete()
         return JsonResponse(status=204)
+
+
+class UserList(generics.ListAPIView):
+    user = User.objects.all()
+    serializer_class = UserSerializer
+
+
+class UserDetail(generics.RetrieveAPIView):
+    user = User.objects.all()
+    serializer_class = UserSerializer
