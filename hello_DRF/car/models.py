@@ -7,6 +7,9 @@ class Car(models.Model):
     no_plate = models.IntegerField(primary_key=True, blank=False)
     model = models.CharField(max_length=10)
     color = models.CharField(max_length=12)
+    owner = models.ForeignKey('auth.user', related_name='cars', on_delete=models.CASCADE)
+    highlighted = models.TextField()
+
 
 
 class Person(models.Model):
