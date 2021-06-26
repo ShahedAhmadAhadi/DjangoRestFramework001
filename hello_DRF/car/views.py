@@ -6,26 +6,25 @@ from rest_framework import serializers
 from rest_framework.parsers import JSONParser
 from rest_framework.utils import json
 from .models import Person, Car
-from .serializers import PersonSerializer, CarSerializer
+from .serializers import CarSerializer, PersonSerializer, UserSerializer
 from rest_framework import generics
+from rest_framework import mixins
 
 # Create your views here.
 
 
-@csrf_exempt
-def car_list(request):
-    if request.method == "GET":
-        car = Car.objects.all()
-        serializer = CarSerializer(car, many=True)
-        return JsonResponse(serializer.data, safe=False)
+class SnippetList(mixins.ListModelMixin,
+                  mixins.CreateModelMixin,
+                  generics.GenericAPIView):
+    car = Car.objects.all()
+    serializer_class = CarSerializer
 
-    elif request.method == "POST":
-        data = JSONParser().parse(request)
-        serializer = CarSerializer(data=data)
-        if serializer.is_valid():
-            serializer.save()
-            return JsonResponse(serializer.data, status=201)
-        return JsonResponse(serializer.errors, status=400)
+    def get(self, request, *args, **kwargs):
+        return self.list(request, *args, **kwargs)
+
+    def post(self, request, *args, **kwargs):
+        return self.create(request, *args, **kwargs)
+
 
 
 @csrf_exempt
@@ -45,11 +44,12 @@ def car_details(request, pk):
         if serializer.is_valid():
             serializer.save()
             return JsonResponse(serializer.data, status=200)
-        return JsonResponse(serializer.errors ,status=400)
+        return JsonResponse(serializer.errors, status=400)
 
     elif request.method == "DELETE":
         car.delete()
         return JsonResponse(status=204)
+
 
 @csrf_exempt
 def person_list(request):
@@ -65,6 +65,7 @@ def person_list(request):
             serializer.save()
             return JsonResponse(serializer.data, status=201)
         return JsonResponse(serializer.errors, status=400)
+
 
 @csrf_exempt
 def person_details(request, pk):
@@ -83,7 +84,7 @@ def person_details(request, pk):
         if serializer.is_valid():
             serializer.save()
             return JsonResponse(serializer.data, status=200)
-        return JsonResponse(serializer.errors ,status=400)
+        return JsonResponse(serializer.errors, status=400)
 
     elif request.method == "DELETE":
         person.delete()
