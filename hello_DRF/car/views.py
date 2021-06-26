@@ -1,3 +1,4 @@
+from .permissions import IsOwnerOrReadOnly
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.models import User
@@ -20,7 +21,7 @@ class CarList(mixins.ListModelMixin,
                   generics.GenericAPIView):
     queryset = Car.objects.all()
     serializer_class = CarSerializer
-    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly]
 
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
@@ -35,7 +36,6 @@ class CarList(mixins.ListModelMixin,
 
 @csrf_exempt
 def car_details(request, pk):
-    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
     try:
         car = Car.objects.get(no_plate=pk)
     except Car.DoesNotExist:
