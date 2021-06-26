@@ -28,7 +28,7 @@ class PersonSerializer(serializers.ModelSerializer):
 
 
 class UserSerializer(serializers.ModelSerializer):
-    car = serializers.PrimaryKeyRelatedField(
+    cars = serializers.PrimaryKeyRelatedField(
         many=True, queryset=Car.objects.all())
 
     class Meta:

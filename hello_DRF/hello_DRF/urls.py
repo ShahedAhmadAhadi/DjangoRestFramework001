@@ -28,7 +28,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include(router.urls)),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
-    path('car/', carView.car_list),
+    path('car/', carView.CarList.as_view()),
     path('car/<int:pk>', carView.car_details),
     path('person/', carView.person_list),
     path('person/<int:pk>', carView.person_details),

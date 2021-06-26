@@ -15,10 +15,10 @@ from rest_framework import mixins
 # Create your views here.
 
 
-class SnippetList(mixins.ListModelMixin,
+class CarList(mixins.ListModelMixin,
                   mixins.CreateModelMixin,
                   generics.GenericAPIView):
-    car = Car.objects.all()
+    queryset = Car.objects.all()
     serializer_class = CarSerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 
