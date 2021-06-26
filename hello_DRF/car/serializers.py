@@ -1,6 +1,8 @@
 from re import search
+from django.contrib.auth.models import User
 from rest_framework import fields, serializers
 from .models import Car, Person
+
 
 
 class CarSerializer(serializers.Serializer):
@@ -24,3 +26,7 @@ class PersonSerializer(serializers.ModelSerializer):
         model = Person
         fields = ['id', 'name', 'DOB', 'job']
 
+class OwnerSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Person
+        fields = ['id', 'username', '']
