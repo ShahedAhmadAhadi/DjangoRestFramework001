@@ -37,4 +37,7 @@ urlpatterns = [
     path('students/', studentViews.StudentName.as_view()),
     path('users/', carView.UserList.as_view()),
     path('users/<int:pk>/', carView.UserDetail.as_view()),
+    path('', carView.api_root),
+    path('car/<int:pk>/highlight', carView.CarHighlight.as_view()),
+    
 ]
