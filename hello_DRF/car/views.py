@@ -114,8 +114,8 @@ class UserDetail(generics.RetrieveAPIView):
 @api_view(['GET'])
 def api_root(request, format=None):
     return Response({
-        'users': reverse('UserList', request=request, format=format),
-        'car': reverse('CarList', request=request, format=format)
+        'users': reverse('user-list', request=request, format=format),
+        'car': reverse('car-list', request=request, format=format)
     })
 
 

@@ -28,16 +28,16 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include(router.urls)),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
-    path('car/', carView.CarList.as_view()),
-    path('car/<int:pk>', carView.car_details),
+    path('car/', carView.CarList.as_view(), name='car-list'),
+    path('car/<int:pk>', carView.car_details, name='car-detail'),
     path('person/', carView.person_list),
     path('person/<int:pk>', carView.person_details),
     path('student/', studentViews.student_list),
     path('student/<int:pk>/', studentViews.student_detail),
     path('students/', studentViews.StudentName.as_view()),
-    path('users/', carView.UserList.as_view()),
-    path('users/<int:pk>/', carView.UserDetail.as_view()),
+    path('users/', carView.UserList.as_view(), name='user-list'),
+    path('users/<int:pk>/', carView.UserDetail.as_view(), name='user-detail'),
     path('', carView.api_root),
-    path('car/<int:pk>/highlight', carView.CarHighlight.as_view()),
-    
+    path('car/<int:pk>/highlight', carView.CarHighlight.as_view(), name='car-highlight'),
+
 ]
