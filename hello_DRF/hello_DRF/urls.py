@@ -16,10 +16,12 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from rest_framework import routers
+from rest_framework import urlpatterns
 from .begin import views
 from car import views as carView
 from student import views as studentViews
 from rest_framework import renderers
+from rest_framework.urlpatterns import format_suffix_patterns
 
 router = routers.DefaultRouter()
 router.register(r'users', views.UserViewSet)
@@ -64,12 +66,16 @@ user_detail = views.UserViewSet.as_view({
 
 # ]
 
-urlpatterns = format_suffix_patterns([
-    path('', carView.api_root),
-    path('cars/', car_list, name='car-list'),
-    path('cars/<int:pk>/', car_detail, name='car-detail'),
-    path('cars/<int:pk>/highlight/', car_highlight, name='car-highlight'),
-    path('users/', user_list, name='user-list'),
-    path('users/<int:pk>/', user_detail, name='user-detail'),
+# urlpatterns = format_suffix_patterns([
+#     path('', carView.api_root),
+#     path('cars/', car_list, name='car-list'),
+#     path('cars/<int:pk>/', car_detail, name='car-detail'),
+#     path('cars/<int:pk>/highlight/', car_highlight, name='car-highlight'),
+#     path('users/', user_list, name='user-list'),
+#     path('users/<int:pk>/', user_detail, name='user-detail'),
+# ])
+
+urlpatterns = [
     path('', include(router.urls)),
-])
+]
+
