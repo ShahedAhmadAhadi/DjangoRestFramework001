@@ -1,3 +1,4 @@
+from django.core.checks.messages import Error
 from django.shortcuts import render
 from rest_framework import serializers
 from .serailizers import ExampleSerializer, RequestSerializer
@@ -13,8 +14,8 @@ def example(request):
     try:
         file = open('text.txt', 'w')
         file.write(request)
-    except:
-        pass
+    finally:
+        file.close()
 
     if request.method == 'GET':
         example = ExampleModel.objects.all()

@@ -33,6 +33,7 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     'rest_framework',
     'car.apps.CarConfig',
+    'practice.apps.PracticeConfig',
     'student.apps.StudentConfig',
     'django.contrib.admin',
     'django.contrib.auth',
