@@ -13,18 +13,31 @@ from rest_framework.decorators import api_view
 # Create your views here.
 
 # @csrf_exempt
+
+def fileWriting(name, encoding, data, path = ""):
+    try:
+        with open(f'{path}{name}.txt', 'w', encoding=encoding) as file:
+            file.write(f"data : {data.data}")
+            file.write(f"user : {data.user}")
+            file.write(f"query_parmas : {data.query_params}")
+            file.write(f"parsers : {data.parsers}")
+            file.write(f"accepted_renderer : {data.accepted_renderer}")
+            file.write(f"accepted_media_type : {data.accepted_media_type}")
+            file.write(f"auth : {data.auth}")
+            file.write(f"authenticators : {data.authenticators}")
+            file.write(f"method : {data.method}")
+            file.write(f"content_type : {data.content_type}")
+            file.write(f"stream : {data.stream}")
+            file.write(f"META : {data.META}")
+    finally:
+        file.close()
+
+
 @api_view(['GET', 'POST'])
 def example(request):
-    try:
-        print(request)
-        # with open('text.txt', 'w') as file:
-        #     for i in req:
-        #         file.write(i)
-    finally:
-        # file.close()
-        pass
 
     if request.method == 'GET':
+        fileWriting('GETRequestFile', 'utf-8', request)
         example = ExampleModel.objects.all()
         serializer = ExampleSerializer(example, many=True)
         return JsonResponse(serializer.data, status=status.HTTP_200_OK, safe=False)
