@@ -22,6 +22,7 @@ from car import views as carView
 from student import views as studentViews
 from rest_framework import renderers
 from rest_framework.urlpatterns import format_suffix_patterns
+from practice import views as pracViews
 
 router = routers.DefaultRouter()
 router.register(r'users', views.UserViewSet)
@@ -77,5 +78,6 @@ user_detail = views.UserViewSet.as_view({
 
 urlpatterns = [
     path('', include(router.urls)),
+    path('example', pracViews.example)
 ]
 

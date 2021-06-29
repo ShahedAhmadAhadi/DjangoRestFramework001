@@ -139,5 +139,3 @@ def api_root(request, format=None):
         'users': reverse('user-list', request=request, format=format),
         'car': reverse('car-list', request=request, format=format)
     })
-
-
