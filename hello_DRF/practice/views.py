@@ -40,6 +40,21 @@ def fileWriting(name, encoding, data, path=""):
         return data
 
 
+def file_writing_for_api_view(name, encoding, data, path=""):
+    try:
+        with open(f'{path}{name}.txt', 'w', encoding=encoding) as file:
+            file.write(f"renderer_classes : {data.renderer_classes}\n")
+            file.write(f"parser_classes : {data.parser_classes}\n")
+            file.write(f"authentication_classes : {data.authentication_classes}\n")
+            file.write(f"throttle_classes : {data.throttle_classes}\n")
+            file.write(f"permission_classes : {data.permission_classes}\n")
+            file.write(f"content_negotiation_class : {data.content_negotiation_class}\n")
+    finally:
+        file.close()
+        print(data)
+        return data
+
+
 # @api_view(['GET', 'POST'])
 # def example(request):
 
@@ -64,7 +79,6 @@ class Example(APIView):
     # permission_classes = [permissions.IsAdminUser]
 
     def get(self, request, format=None):
-        )
         usernames = [user.username for user in User.objects.all()]
         return Response(usernames)
 
