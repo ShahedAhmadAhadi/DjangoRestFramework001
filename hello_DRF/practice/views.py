@@ -60,12 +60,16 @@ def fileWriting(name, encoding, data, path=""):
 #         return Response('req')
 
 class Example(APIView):
-    authentication_classes = [authentication.TokenAuthentication]
-    permission_classes = [permissions.IsAdminUser]
+    # authentication_classes = [authentication.TokenAuthentication]
+    # permission_classes = [permissions.IsAdminUser]
 
     def get(self, request, format=None):
+        )
         usernames = [user.username for user in User.objects.all()]
         return Response(usernames)
+
+    def post(self, request, format=None):
+        pass
 
 
 def log(request):

@@ -79,6 +79,6 @@ user_detail = views.UserViewSet.as_view({
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include(router.urls)),
-    path('example/', pracViews.example)
+    path('example/', pracViews.Example.as_view())
 ]
 
