@@ -42,7 +42,7 @@ car_detail = carView.CarViewSet.as_view({
 car_highlight = carView.CarViewSet.as_view({
     'get': 'highlight'
 }, renderer_classes=[renderers.StaticHTMLRenderer])
-user_list =views.UserViewSet.as_view({
+user_list = views.UserViewSet.as_view({
     'get': 'list'
 })
 user_detail = views.UserViewSet.as_view({
@@ -79,6 +79,6 @@ user_detail = views.UserViewSet.as_view({
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include(router.urls)),
-    path('example/', pracViews.Example.as_view())
+    path('example/', pracViews.Example.as_view()),
+    path('hello/', pracViews.hello)
 ]
-

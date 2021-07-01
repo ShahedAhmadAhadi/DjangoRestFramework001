@@ -80,13 +80,9 @@ class Example(APIView):
 
     def get(self, request, format=None):
         file_writing_for_api_view("APIViewMethods", 'utf-8', self)
-        print(get_renderers(self))
-        print(get_parsers(self))
-        print(get_authenticators(self))
-        print(get_throttles(self))
-        print(get_permissions(self))
-        print(get_content_negotiator(self))
-        print(get_exception_handler(self))
+        print(self.get_renderers())
+        print(self.get_content_negotiator())
+        # print(get_exception_handler(self))
         usernames = [user.username for user in User.objects.all()]
         return Response(usernames)
 
@@ -96,3 +92,8 @@ class Example(APIView):
 
 def log(request):
     pass
+
+
+@api_view(['GET'])
+def hello(request):
+    return Response({"message": "Hello, world!"})
