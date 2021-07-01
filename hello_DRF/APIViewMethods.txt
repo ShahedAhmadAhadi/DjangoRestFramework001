@@ -1,0 +1,6 @@
+renderer_classes : [<class 'rest_framework.renderers.JSONRenderer'>, <class 'rest_framework.renderers.BrowsableAPIRenderer'>]
+parser_classes : [<class 'rest_framework.parsers.JSONParser'>, <class 'rest_framework.parsers.FormParser'>, <class 'rest_framework.parsers.MultiPartParser'>]
+authentication_classes : [<class 'rest_framework.authentication.SessionAuthentication'>, <class 'rest_framework.authentication.BasicAuthentication'>]
+throttle_classes : []
+permission_classes : [<class 'rest_framework.permissions.AllowAny'>]
+content_negotiation_class : <class 'rest_framework.negotiation.DefaultContentNegotiation'>
