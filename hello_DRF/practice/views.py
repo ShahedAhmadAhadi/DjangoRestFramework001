@@ -10,8 +10,9 @@ from .models import ExampleModel, RequestLog
 from rest_framework import status
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.parsers import JSONParser
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, throttle_classes
 from rest_framework import authentication, permissions
+from rest_framework.throttling import UserRateThrottle
 from django.contrib.auth.models import User
 
 # Create your views here.
@@ -93,7 +94,10 @@ class Example(APIView):
 def log(request):
     pass
 
+class oncePerHourThrottle(UserRateThrottle):
+    rate = '1/m'
 
 @api_view(['GET'])
+@throttle_classes([oncePerHourThrottle])
 def hello(request):
-    return Response({"message": "Hello, world!"})
+    return Response({"message": "Hello, in this minute!"})
