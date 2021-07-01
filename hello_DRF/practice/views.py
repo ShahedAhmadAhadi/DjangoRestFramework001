@@ -3,6 +3,7 @@ from django.core.checks.messages import Error
 from django.http.response import JsonResponse
 from django.shortcuts import render
 from rest_framework import serializers
+from rest_framework.views import APIView
 from .serailizers import ExampleSerializer, RequestSerializer
 from rest_framework.response import Response
 from .models import ExampleModel, RequestLog
@@ -10,6 +11,8 @@ from rest_framework import status
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.parsers import JSONParser
 from rest_framework.decorators import api_view
+from rest_framework import authentication, permissions
+from django.contrib.auth.models import User
 
 # Create your views here.
 
@@ -37,24 +40,32 @@ def fileWriting(name, encoding, data, path=""):
         return data
 
 
-@api_view(['GET', 'POST'])
-def example(request):
+# @api_view(['GET', 'POST'])
+# def example(request):
 
-    if request.method == 'GET':
-        request = fileWriting('GETRequestFile', 'utf-8', request)
-        example = ExampleModel.objects.all()
-        serializer = ExampleSerializer(example, many=True)
-        return JsonResponse(serializer.data, status=status.HTTP_200_OK, safe=False)
+#     if request.method == 'GET':
+#         request = fileWriting('GETRequestFile', 'utf-8', request)
+#         example = ExampleModel.objects.all()
+#         serializer = ExampleSerializer(example, many=True)
+#         return JsonResponse(serializer.data, status=status.HTTP_200_OK, safe=False)
 
-    if request.method == 'POST':
-        req = fileWriting('POSTRequestFile', 'utf-8', request)
-        # data = JSONParser().parse(request)
-        serializer = ExampleSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return JsonResponse(serializer.data, status=status.HTTP_201_CREATED)
-        return JsonResponse(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-        return Response('req')
+#     if request.method == 'POST':
+#         req = fileWriting('POSTRequestFile', 'utf-8', request)
+#         # data = JSONParser().parse(request)
+#         serializer = ExampleSerializer(data=request.data)
+#         if serializer.is_valid():
+#             serializer.save()
+#             return JsonResponse(serializer.data, status=status.HTTP_201_CREATED)
+#         return JsonResponse(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+#         return Response('req')
+
+class Example(APIView):
+    authentication_classes = [authentication.TokenAuthentication]
+    permission_classes = [permissions.IsAdminUser]
+
+    def get(self, request, format=None):
+        usernames = [user.username for user in User.objects.all()]
+        return Response(usernames)
 
 
 def log(request):
