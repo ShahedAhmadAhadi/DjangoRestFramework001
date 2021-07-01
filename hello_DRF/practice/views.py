@@ -15,7 +15,8 @@ from rest_framework.decorators import api_view
 
 # @csrf_exempt
 
-def fileWriting(name, encoding, data, path = ""):
+
+def fileWriting(name, encoding, data, path=""):
     try:
         with open(f'{path}{name}.txt', 'w', encoding=encoding) as file:
             file.write(f"data : {data.data}\n")
@@ -40,7 +41,7 @@ def fileWriting(name, encoding, data, path = ""):
 def example(request):
 
     if request.method == 'GET':
-        request =  fileWriting('GETRequestFile', 'utf-8', request)
+        request = fileWriting('GETRequestFile', 'utf-8', request)
         example = ExampleModel.objects.all()
         serializer = ExampleSerializer(example, many=True)
         return JsonResponse(serializer.data, status=status.HTTP_200_OK, safe=False)
