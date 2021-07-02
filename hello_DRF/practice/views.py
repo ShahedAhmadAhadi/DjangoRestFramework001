@@ -101,3 +101,9 @@ class oncePerHourThrottle(UserRateThrottle):
 @throttle_classes([oncePerHourThrottle])
 def hello(request):
     return Response({"message": "Hello, in this minute!"})
+
+
+@api_view(['GET'])
+@schema(None)
+def view(request):
+    return Response({"message": "Will not appear in schema!"})
