@@ -3,8 +3,9 @@ from django.core.checks.messages import Error
 from django.http.response import JsonResponse
 from django.shortcuts import render
 from rest_framework import generics, serializers
+from rest_framework import schemas
 from rest_framework.views import APIView
-from .serailizers import ExampleSerializer, RequestSerializer, UserSerializer
+from .serializers import ExampleSerializer, RequestSerializer, UserSerializer
 from rest_framework.response import Response
 from .models import ExampleModel, RequestLog
 from rest_framework import status
@@ -14,6 +15,7 @@ from rest_framework.decorators import api_view, throttle_classes
 from rest_framework import authentication, permissions
 from rest_framework.throttling import UserRateThrottle
 from django.contrib.auth.models import User
+from rest_framework.decorators import schema
 
 # Create your views here.
 
@@ -104,7 +106,7 @@ def hello(request):
 
 
 @api_view(['GET'])
-@schema(None)
+# @schemas(None)
 def view(request):
     return Response({"message": "Will not appear in schema!"})
 

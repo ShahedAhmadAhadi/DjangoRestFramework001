@@ -13,8 +13,9 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from hello_DRF.car.views import UserList
+# from hello_DRF.car.views import UserList
 from django.contrib import admin
+from django.db.models import query
 from django.urls import path, include
 from rest_framework import routers
 from rest_framework import urlpatterns
@@ -24,6 +25,8 @@ from student import views as studentViews
 from rest_framework import renderers
 from rest_framework.urlpatterns import format_suffix_patterns
 from practice import views as pracViews
+from practice import serializers
+from django.contrib.auth.models import User
 
 router = routers.DefaultRouter()
 router.register(r'users', views.UserViewSet)
@@ -82,6 +85,6 @@ urlpatterns = [
     path('', include(router.urls)),
     path('example/', pracViews.Example.as_view()),
     path('hello/', pracViews.hello),
-    path('usersG/', UserList.as_view())
+    path('usersG/', pracViews.UserList.as_view(queryset=User.objects.all(), serializer_class=serializers.UserSerializer)),
 
 ]
