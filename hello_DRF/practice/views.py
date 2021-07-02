@@ -2,7 +2,7 @@ import re
 from django.core.checks.messages import Error
 from django.http.response import JsonResponse
 from django.shortcuts import render
-from rest_framework import serializers
+from rest_framework import generics, serializers
 from rest_framework.views import APIView
 from .serailizers import ExampleSerializer, RequestSerializer
 from rest_framework.response import Response
@@ -107,3 +107,8 @@ def hello(request):
 @schema(None)
 def view(request):
     return Response({"message": "Will not appear in schema!"})
+
+
+class UserList(generics.ListCreateAPIView):
+    queryset = User.objects.all()
+    # serializer_class = 
