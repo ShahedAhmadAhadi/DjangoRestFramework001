@@ -13,6 +13,7 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+from hello_DRF.car.views import UserList
 from django.contrib import admin
 from django.urls import path, include
 from rest_framework import routers
@@ -80,5 +81,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include(router.urls)),
     path('example/', pracViews.Example.as_view()),
-    path('hello/', pracViews.hello)
+    path('hello/', pracViews.hello),
+    path('usersG/', UserList.as_view())
+
 ]

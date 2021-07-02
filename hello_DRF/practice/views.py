@@ -4,7 +4,7 @@ from django.http.response import JsonResponse
 from django.shortcuts import render
 from rest_framework import generics, serializers
 from rest_framework.views import APIView
-from .serailizers import ExampleSerializer, RequestSerializer
+from .serailizers import ExampleSerializer, RequestSerializer, UserSerializer
 from rest_framework.response import Response
 from .models import ExampleModel, RequestLog
 from rest_framework import status
@@ -111,4 +111,5 @@ def view(request):
 
 class UserList(generics.ListCreateAPIView):
     queryset = User.objects.all()
-    # serializer_class = 
+    serializer_class = UserSerializer
+
