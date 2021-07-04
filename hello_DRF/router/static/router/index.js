@@ -19,7 +19,10 @@ async function post(data) {
                 gender: item.gender,
                 email: item.email,
                 phone: item.phone,
+                data: { csrfmiddlewaretoken: "{{ csrf_token }}"},
+ 
             }),
+            
         })
 );
 }
