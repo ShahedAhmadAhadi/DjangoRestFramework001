@@ -8,12 +8,16 @@ async function add() {
     
 }
 
+let a  = document.getElementsByName('csrfmiddlewaretoken')
+console.log(a[0].value)
+
 const csrftoken = 'document.cookie.csrftoken'
+const request = new Request('http://localhost:8000/router/')
 async function post(data) {
     data.map(
     item =>
-        fetch("http://localhost:8000/router/", {
-            headers: { "Content-type": "application/json", "X-CSRFToken": csrftoken , "csrfmiddlewaretoken": "nVApnU8XGVNcCblL1lTZkwaV9cB8s544KShByxvUscuiZ2E2M1uI4ze5Iby3gn3J"},
+        fetch(request, {
+            headers: { "Content-type": "application/json", "X-CSRFToken": a[0].value},
             method: "POST",
             body: JSON.stringify({
                 name: item.name.first + item.name.last,
@@ -22,7 +26,7 @@ async function post(data) {
                 phone: item.phone, 
             }),
             
-        })
+        }).then(response => response.json()).then(response => console.log(response))
 );
 }
 

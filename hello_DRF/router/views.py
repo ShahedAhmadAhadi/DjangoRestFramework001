@@ -10,20 +10,23 @@ from .models import Employee
 from .serializers import EmpSerializer
 from rest_framework.parsers import JSONParser
 from rest_framework.response import Response
+from rest_framework import status
 
 # Create your views here.
 
 
 @api_view(['GET', 'POST'])
 def create_records(request):
-    print(request.__dict__)
-    print(request._full_data)
+    print(request.body)
+    if request.method == "GET":
+        return Response({'result': 'only-post'}, status=status.HTTP_200_OK)
     if request.method == "POST":
-        print(request.data)
         serializer = EmpSerializer(data = request.data)
         if serializer.is_valid():
             serializer.save()
-            return Response(request.data)
+        return Response(request.data, status=status.HTTP_201_CREATED)
 
+
+def template_view(request):
     if request.method == "GET":
         return render(request, './router/index.html')
