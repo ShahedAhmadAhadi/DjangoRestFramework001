@@ -17,14 +17,14 @@ from rest_framework import status
 
 @api_view(['GET', 'POST'])
 def create_records(request):
-    print(request.body)
     if request.method == "GET":
         return Response({'result': 'only-post'}, status=status.HTTP_200_OK)
     if request.method == "POST":
         serializer = EmpSerializer(data = request.data)
         if serializer.is_valid():
             serializer.save()
-        return Response(request.data, status=status.HTTP_201_CREATED)
+            print('aldj ')
+        return Response({'a':'a'}, status=status.HTTP_201_CREATED)
 
 
 def template_view(request):

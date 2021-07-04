@@ -13,10 +13,13 @@ console.log(a[0].value)
 
 const csrftoken = 'document.cookie.csrftoken'
 const request = new Request('http://localhost:8000/router/')
+
+    
+
 async function post(data) {
     data.map(
-    item =>
-        fetch(request, {
+    (item, i) =>{setTimeout(() => {
+        fetch('http://localhost:8000/router/', {
             headers: { "Content-type": "application/json", "X-CSRFToken": a[0].value},
             method: "POST",
             body: JSON.stringify({
@@ -26,8 +29,15 @@ async function post(data) {
                 phone: item.phone, 
             }),
             
-        }).then(response => response.json()).then(response => console.log(response))
-);
+        })
+        .then(response => response.json()).then(response => console.log(response))}, i * 5000)
+    });
+}
+
+async function name(data) {
+    for(let i = 0; i <= 10; i++){
+        fetch('http://localhost')
+    }
 }
 
 
