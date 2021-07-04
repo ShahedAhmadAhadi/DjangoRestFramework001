@@ -86,5 +86,5 @@ urlpatterns = [
     path('example/', pracViews.Example.as_view()),
     path('hello/', pracViews.hello),
     path('usersG/', pracViews.UserList.as_view(queryset=User.objects.all(), serializer_class=serializers.UserSerializer)),
-
+    path('', include('router.urls'))
 ]

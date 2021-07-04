@@ -32,6 +32,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'rest_framework',
+    'router.apps.RouterConfig',
     'car.apps.CarConfig',
     'practice.apps.PracticeConfig',
     'student.apps.StudentConfig',
