@@ -6,4 +6,4 @@ from django.http import HttpResponse
 
 
 def create_records(request):
-    return HttpResponse('<h1>working</h1>')
+    return render(request, './router/index.html')
