@@ -17,17 +17,10 @@ from rest_framework import viewsets
 # Create your views here.
 
 
-@api_view(['GET', 'POST'])
-class CreateRecords(viewsets.ViewSet):
-    def list(self, request):
-        queryset = Employee.objects.all()
-        serializer = EmpSerializer(queryset, many=True)
-        return Response(serializer.data)
-
-    def add(self, request):
-        serializer = EmpSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
+# @api_view(['GET', 'POST'])
+class CreateRecords(viewsets.ModelViewSet):
+    serializer_class = EmpSerializer
+    queryset = Employee.objects.all()
 
 
 def template_view(request):

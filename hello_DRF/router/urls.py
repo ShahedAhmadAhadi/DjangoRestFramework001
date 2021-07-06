@@ -6,7 +6,7 @@ from rest_framework import routers
 app_name = 'router'
 
 router = routers.SimpleRouter()
-router.register(r'router/', CreateRecords, basename='Emp')
+router.register(r'router', CreateRecords, basename='employee')
 # router.register(r'template', template_view)
 urlpatterns = router.urls
 
