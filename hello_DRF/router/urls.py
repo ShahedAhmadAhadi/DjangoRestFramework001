@@ -1,4 +1,4 @@
-from .views import create_records, template_view
+from .views import CreateRecords
 from django.conf import settings
 from django.urls import path
 from rest_framework import routers
@@ -6,8 +6,8 @@ from rest_framework import routers
 app_name = 'router'
 
 router = routers.SimpleRouter()
-router.register(r'router', create_records)
-router.register(r'template', template_view)
+router.register(r'router/', CreateRecords, basename='Emp')
+# router.register(r'template', template_view)
 urlpatterns = router.urls
 
 # urlpatterns = [

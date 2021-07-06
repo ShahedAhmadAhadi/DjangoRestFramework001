@@ -1,3 +1,4 @@
+from django.db.models.query import QuerySet
 from django.http.response import HttpResponse, JsonResponse
 from django.shortcuts import render
 from django.http import HttpResponse
@@ -11,19 +12,22 @@ from .serializers import EmpSerializer
 from rest_framework.parsers import JSONParser
 from rest_framework.response import Response
 from rest_framework import status
+from rest_framework import viewsets
 
 # Create your views here.
 
 
 @api_view(['GET', 'POST'])
-def create_records(request):
-    if request.method == "GET":
-        return Response({'result': 'only-post'}, status=status.HTTP_200_OK)
-    if request.method == "POST":
-        serializer = EmpSerializer(data = request.data)
+class CreateRecords(viewsets.ViewSet):
+    def list(self, request):
+        queryset = Employee.objects.all()
+        serializer = EmpSerializer(queryset, many=True)
+        return Response(serializer.data)
+
+    def add(self, request):
+        serializer = EmpSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
-        return Response({'a':'a'}, status=status.HTTP_201_CREATED)
 
 
 def template_view(request):
