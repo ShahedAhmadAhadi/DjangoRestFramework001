@@ -19,6 +19,7 @@ from rest_framework import viewsets
 
 # @api_view(['GET', 'POST'])
 class CreateRecords(viewsets.ModelViewSet):
+    parser_classes = [JSONParser]
     serializer_class = EmpSerializer
     queryset = Employee.objects.all()
 
