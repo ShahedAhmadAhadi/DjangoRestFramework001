@@ -23,7 +23,6 @@ def create_records(request):
         serializer = EmpSerializer(data = request.data)
         if serializer.is_valid():
             serializer.save()
-            print('aldj ')
         return Response({'a':'a'}, status=status.HTTP_201_CREATED)
 
 
